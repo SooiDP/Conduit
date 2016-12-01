@@ -2,11 +2,11 @@ class ProfileCtrl {
   constructor(profile, User) {
     'ngInject';
 
+    // The profile for this page, resolved by UI Router
     this.profile = profile;
-    console.log(profile)
 
+    // Show edit profile is this profile is the current user's
     if (User.current) {
-      console.log(this.profile)
       this.isUser = (User.current.username === this.profile.username);
     } else {
       this.isUser = false;

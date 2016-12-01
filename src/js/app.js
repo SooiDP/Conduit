@@ -18,7 +18,6 @@ import './auth';
 import './settings';
 import './editor';
 
-
 // Create and bootstrap application
 const requires = [
   'ui.router',
