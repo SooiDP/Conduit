@@ -52,9 +52,52 @@ export default class Articles {
         }).then(
             (res) => deferred.resolve(res.data.article),
             (err) => deferred.reject(err)
-        );
-        
+            );
+
         return deferred.promise;
+    }
+
+    // Delete an article
+    destroy(slug) {
+        return this._$http({
+            url: this._AppConstants.api + '/articles/' + slug,
+            method: 'DELETE'
+        });
+    }
+
+    // Favorite an article
+    favorite(slug) {
+        return this._$http({
+            url: this._AppConstants.api + '/articles/' + slug + '/favorite',
+            method: 'POST'
+        });
+    }
+
+    // Unfavorite an article
+    unfavorite(slug) {
+        return this._$http({
+            url: this._AppConstants.api + '/articles/' + slug + '/favorite',
+            method: 'DELETE'
+        });
+    }
+
+    /*
+        Config object spec:
+    
+        {
+          type: String [REQUIRED] - Accepts "all", "feed"
+          filters: Object that serves as a key => value of URL params (i.e. {author:"ericsimons"} )
+        }
+      */
+    query(config) {
+
+        // Create the $http object for this request
+        let request = {
+            url: this._AppConstants.api + '/articles' + ((config.type === 'feed') ? '/feed' : ''),
+            method: 'GET',
+            params: config.filters ? config.filters : null
+        };
+        return this._$http(request).then((res) => res.data);
     }
 
 }
