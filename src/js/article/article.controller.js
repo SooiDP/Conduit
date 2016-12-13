@@ -9,10 +9,10 @@ class ArticleCtrl {
 
         this.currentUser = User.current;
 
-        // Update page title
+        // Update the title of this page
         $rootScope.setPageTitle(this.article.title);
 
-        // Transform markdown into html
+        // Transform the markdown into HTML
         this.article.body = $sce.trustAsHtml(marked(this.article.body, { sanitize: true }));
 
         // Get comments for this article
@@ -22,7 +22,6 @@ class ArticleCtrl {
 
         // Initialize blank comment form
         this.resetCommentForm();
-
     }
 
     resetCommentForm() {

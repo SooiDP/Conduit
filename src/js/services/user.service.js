@@ -12,7 +12,7 @@ export default class User {
         this.current = null;
     }
 
-    // try to authenticate by registering or logging in
+    // Try to authenticate by registering or logging in
     attemptAuth(type, credentials) {
         let route = (type === 'login') ? '/login' : '';
         return this._$http({
@@ -22,12 +22,12 @@ export default class User {
                 user: credentials
             }
         }).then(
-            // On success
+            // On success...
             (res) => {
                 // Set the JWT token
                 this._JWT.save(res.data.user.token);
 
-                // store user info
+                // Store the user's info for easy lookup
                 this.current = res.data.user;
 
                 return res;
@@ -41,7 +41,6 @@ export default class User {
         // Do a hard reload of current state to ensure all data is flushed
         this._$state.go(this._$state.$current, null, { reload: true });
     }
-
     verifyAuth() {
         let deferred = this._$q.defer();
 
@@ -60,13 +59,16 @@ export default class User {
         } else {
             this._$http({
                 url: this._AppConstants.api + '/user',
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    Authorization: 'Token ' + this._JWT.get()
+                }
             }).then(
                 (res) => {
                     this.current = res.data.user;
                     deferred.resolve(true);
                 },
-                // if an error happens, that means the user's token was invalid.
+                // If an error happens, that means the user's token was invalid.
                 (err) => {
                     this._JWT.destroy();
                     deferred.resolve(false);
@@ -92,20 +94,23 @@ export default class User {
                 deferred.resolve(true);
             }
         })
+
         return deferred.promise;
     }
 
-    // Update the current user's name, email, password etc
+    // Update the current user's name, email, password, etc
     update(fields) {
         return this._$http({
             url: this._AppConstants.api + '/user',
             method: 'PUT',
-            data: { user:fields }
+            data: { user: fields }
         }).then(
             (res) => {
                 this.current = res.data.user;
                 return res.data.user;
             }
-        );
+            );
     }
+
+
 }

@@ -3,7 +3,7 @@ export default class JWT {
         'ngInject';
 
         this._AppConstants = AppConstants;
-        this._$window= $window;
+        this._$window = $window;
     }
 
     save(token) {
@@ -17,4 +17,6 @@ export default class JWT {
     destroy() {
         this._$window.localStorage.removeItem(this._AppConstants.jwtKey);
     }
+
+
 }

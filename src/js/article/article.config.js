@@ -7,7 +7,8 @@ function ArticleConfig($stateProvider) {
       controller: 'ArticleCtrl',
       controllerAs: '$ctrl',
       templateUrl: 'article/article.html',
-      // When controller loads, title of webpage = article title
+      // When the controller loads, the title of the web page
+      // will be changed to the article's title
       title: 'Article',
       resolve: {
         article: function (Articles, $state, $stateParams) {

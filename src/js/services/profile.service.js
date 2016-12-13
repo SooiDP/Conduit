@@ -5,7 +5,6 @@ export default class Profile {
         this._AppConstants = AppConstants;
         this._$http = $http;
 
-
     }
 
     // Retrieve a user's profile
@@ -31,5 +30,6 @@ export default class Profile {
             method: 'DELETE'
         }).then((res) => res.data);
     }
+
 
 }

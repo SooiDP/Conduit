@@ -11,7 +11,9 @@ class ArticleActionsCtrl {
     } else {
       this.canModify = false;
     }
+
   }
+
   deleteArticle() {
     this.isDeleting = true;
     this._Articles.destroy(this.article.slug).then(
@@ -19,6 +21,7 @@ class ArticleActionsCtrl {
       (err) => this._$state.go('app.home')
     );
   }
+
 }
 
 let ArticleActions = {
