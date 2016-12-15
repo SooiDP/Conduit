@@ -31,5 +31,4 @@ export default class Profile {
         }).then((res) => res.data);
     }
 
-
 }
